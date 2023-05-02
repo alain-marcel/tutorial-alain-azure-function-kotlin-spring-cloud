@@ -11,6 +11,13 @@ plugins {
   // https://mvnrepository.com/artifact/com.microsoft.azure.azurefunctions/com.microsoft.azure.azurefunctions.gradle.plugin?repo=eea-sk-public
   // https://github.com/microsoft/azure-gradle-plugins
   id("com.microsoft.azure.azurefunctions") version "1.12.1" apply false
+
+  //---------- Spring
+  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-gradle-plugin
+  id("org.springframework.boot") version "2.7.9" apply false
+
+  // https://mvnrepository.com/artifact/io.spring.gradle/dependency-management-plugin
+  id("io.spring.dependency-management") version "1.0.15.RELEASE" apply false
 }
 
 

@@ -37,7 +37,7 @@ class ExampleFunctionTest {
         doReturn(Logger.getGlobal()).`when`(context).logger
 
         // Invoke
-        val ret: HttpResponseMessage = ExampleFunction().run(req, context)
+        val ret: HttpResponseMessage = ExampleAzureFunction().execute(req, context)
 
         // Verify
         assertEquals(HttpStatus.OK, ret.status)

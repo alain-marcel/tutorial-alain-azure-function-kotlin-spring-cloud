@@ -1,46 +1,16 @@
 package org.example
 
-import java.util.*
-import com.microsoft.azure.functions.*
-import com.microsoft.azure.functions.annotation.*
+import org.springframework.stereotype.Component
 
-/**
- * Azure Functions with HTTP Trigger.
- */
-class ExampleFunction {
+@Component(ExampleFunction.FUNCTION_NAME)
+class ExampleFunction : java.util.function.Function<String, String> {
 
-    /**
-     * This function listens at endpoint "/api/HttpTrigger-Java". Two ways to invoke it using "curl" command in bash:
-     * 1. curl -d "HTTP Body" {your host}/api/HttpTrigger-Java&code={your function key}
-     * 2. curl "{your host}/api/HttpTrigger-Java?name=HTTP%20Query&code={your function key}"
-     * Function Key is not needed when running locally, it is used to invoke function deployed to Azure.
-     * More details: https://aka.ms/functions_authorization_keys
-     */
-    @FunctionName("HttpTrigger-Java")
-    fun run(
-            @HttpTrigger(
-                    name = "req",
-                    methods = [HttpMethod.GET, HttpMethod.POST],
-                    authLevel = AuthorizationLevel.FUNCTION) request: HttpRequestMessage<Optional<String>>,
-            context: ExecutionContext): HttpResponseMessage {
+  override fun apply(name: String): String {
+    return "Hello from " + name
+  }
 
-        context.logger.info("HTTP trigger processed a ${request.httpMethod.name} request.")
+  companion object {
 
-        val query = request.queryParameters["name"]
-        val name = request.body.orElse(query)
-
-        println("=============================== DEMO ========================")
-        name?.let {
-            return request
-                    .createResponseBuilder(HttpStatus.OK)
-                    .body("Hello: $name!")
-                    .build()
-        }
-
-        return request
-                .createResponseBuilder(HttpStatus.BAD_REQUEST)
-                .body("Please pass a name on the query string or in the request body")
-                .build()
-    }
-
+    const val FUNCTION_NAME = "HttpTrigger-Java"
+  }
 }
