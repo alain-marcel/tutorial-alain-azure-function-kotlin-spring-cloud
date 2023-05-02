@@ -1,0 +1,37 @@
+apply plugin: 'com.microsoft.azure.azurefunctions'
+//apply from: "xproject/gradle/copy_java_agent_task.gradle"
+
+def ide_jarNameWithoutVersion = "${jar.archiveBaseName.get()}".toString()
+def ide_appName = "$ide_jarNameWithoutVersion-$version".toString()
+
+azureFunctionsPackage {
+  dependsOn assemble
+}
+
+azureFunctionsPackageZip {
+  dependsOn azureFunctionsPackage
+}
+
+azureFunctionsRun {
+  dependsOn azureFunctionsPackageZip
+}
+
+azurefunctions {
+  allowTelemetry = false
+  subscription = '260e1188-ae57-42d2-9a93-320037d55ffe'
+  resourceGroup = 'aaaaaaaa'
+  appName = "$ide_appName"
+  pricingTier = 'Consumption'
+  region = 'westeurope'
+  runtime {
+    os = 'windows'
+  }
+
+  authentication {
+    type = 'azure_cli'
+  }
+  localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
+  deployment {
+    type = 'run_from_zip'
+  }
+}
