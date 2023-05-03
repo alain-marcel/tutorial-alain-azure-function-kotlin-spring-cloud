@@ -6,6 +6,7 @@ plugins {
 
 }
 
+apply(from = "../xproject/gradle/spring_app.gradle")
 apply(from = "../xproject/gradle/azure_functions_package.gradle")
 
 dependencies {

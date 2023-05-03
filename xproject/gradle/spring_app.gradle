@@ -1,0 +1,35 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'org.springframework.boot.experimental.thin-launcher'
+//apply from: "../xproject/gradle/copy_java_agent_task.gradle"
+//
+//springBoot {
+//  buildInfo()
+//}
+//
+//// The default profile enables by Spring Boot is prod (cf. application.yml file)
+//// When the app is run with 'bootRun' Gradle task, we want to use the 'dev' profile.
+//// When the app is deployed in Azure, the following instruction should not apply,
+//// so that the default profile defined in application.yml (i.e. prod) is applied.
+//// Note: ide_azureFunction_runApp.bat also overrides the default profile.
+//ext.createCopyJavaAgentTask("copyJavaAgentForBootRun", "$buildDir/libs")
+//bootRun {
+//  args = ["--spring.profiles.active=dev"]
+//
+//  // to launch application in bootRun without the java agent, comment the two following lines
+//  // and run gradle clean task before running bootRun again
+//  jvmArgs = ["-javaagent:$buildDir/libs/applicationinsights-agent.jar"]
+//  dependsOn copyJavaAgentForBootRun
+//}
+
+jar {
+  manifest {
+    attributes 'Start-Class': ''
+  }
+}
+
+bootJarMainClassName {
+  dependsOn thinPom
+}
+
+//// Exclude mockito used by spring framework to use version from mockito-scala
+//ext['mockito.version'] = ''

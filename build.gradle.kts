@@ -18,6 +18,11 @@ plugins {
 
   // https://mvnrepository.com/artifact/io.spring.gradle/dependency-management-plugin
   id("io.spring.dependency-management") version "1.0.15.RELEASE" apply false
+
+  // https://mvnrepository.com/artifact/org.springframework.boot.experimental/spring-boot-thin-launcher
+  // https://github.com/spring-projects-experimental/spring-boot-thin-launcher
+  id("org.springframework.boot.experimental.thin-launcher") version "1.0.29.RELEASE" apply false
+
 }
 
 
